@@ -1,24 +1,45 @@
-import logo from './logo.svg';
+
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Copyright from './components/Copyright';
+import HomeScreen from './screens/HomeScreen';
+import { BrowserRouter, Route } from 'react-router-dom';
+import ProductScreen from './screens/ProductScreen';
+import CartScreen from './screens/CartScreen';
+import SigninScreen from './screens/SigninScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="app">
+
+        <header>
+          <Header />
+        </header>
+
+        {/* Navbar */}
+        <Navbar />
+        {/* main */}
+        <main>
+          <Route path="/cart/:id?" component={CartScreen}></Route>
+          <Route path="/product/:id" component={ProductScreen}></Route>
+          <Route path="/register" component={RegisterScreen}></Route>
+          <Route path="/signin" component={SigninScreen}></Route>
+          <Route path="/" component={HomeScreen} exact></Route>
+        </main>
+
+        <footer className="bg-dark text-white py-5">
+          <Footer />
+        </footer>
+
+        <Copyright />
+
+      </div>
+    </BrowserRouter>
   );
 }
 

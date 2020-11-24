@@ -1,0 +1,4 @@
+export const CART_ADD_PRODUCT = 'CART__ADD__PRODUCT';
+export const CART_ADD_RELOAD = 'CART_ADD_RELOAD';
+export const CART_ADD_FAIL = 'CART_ADD_FAIL';
+export const CART_REMOVE_PRODUCT = 'CART_REMOVE_PRODUCT';
