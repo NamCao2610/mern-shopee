@@ -36,12 +36,12 @@ function CartScreen({ match, location, history }) {
     return (
         <section id="cart" className="py-3">
             <div className="container-fluid w-75">
-                <h5 className="font-baloo font-size-20">Shopping Cart</h5>
+                <h5 className="font-baloo font-size-20">Giỏ hàng của bạn</h5>
 
                 <div className="row">
                     <div className="col-sm-9">
 
-                        {cartItems.length === 0 ? <MessageBox>Cart hien tai chua co gi <Link to="/">Go Shopping</Link></MessageBox> : cartItems.map((item) => (
+                        {cartItems.length === 0 ? <MessageBox>Cart hiện tại chưa có gì <Link to="/">Go Shopping</Link></MessageBox> : cartItems.map((item) => (
                             <div className="row border-top py-3 mt-3" key={item.id}>
                                 <div className="col-sm-2">
                                     <img src={item.image} style={{ height: "120px" }} alt={item.name}
@@ -55,7 +55,7 @@ function CartScreen({ match, location, history }) {
                                         <div className="rating font-size-12 text-warning">
                                             <Rating rating={item.rating} />
                                         </div>
-                                        <Link to="/" className="font-rale font-size-14 px-2">20.534 rating</Link>
+                                        <Link to="#" className="font-rale font-size-14 px-2">{item.rating} rating</Link>
                                     </div>
 
                                     <div className="qty d-flex pt-2">
@@ -91,7 +91,7 @@ function CartScreen({ match, location, history }) {
                                 <h5 className="font-baloo font-size-20">Tổng cộng ({cartItems.reduce((total, item) => total += Number(item.qty), 0)} vật phẩm)&nbsp;
                                                 <span className="text-danger" id="deal-price">${cartItems.reduce((total, item) => total += (Number(item.qty * item.price)), 0)}</span>
                                 </h5>
-                                <button className="btn btn-warning mt-3" onClick={handleRedirect}>Tiến hành thanh toán</button>
+                                <button className="btn btn-warning mt-3" onClick={handleRedirect} disabled={cartItems.length === 0}>Tiến hành thanh toán</button>
                             </div>
                         </div>
                     </div>

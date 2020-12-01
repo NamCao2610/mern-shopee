@@ -18,7 +18,7 @@ function Header() {
     return (
         <div className="header d-flex justify-content-between px-4 py-1 bg-light">
             <p className="font-rale font-size-12 text-black-50 m-0">
-                Nam dep zai 2610 cute pro 92611 (427) 930-5255
+                Nam dep zai 2610 cute pro 0384554716 namdepzai2610@gmail.com
            </p>
             <div className="font-rale font-size-14 d-flex">
                 <div className="px-3 border-right border-left text-dark">{userInfo ?

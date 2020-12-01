@@ -26,6 +26,7 @@ function RegisterScreen({ location }) {
     const redirect = location.search ? location.search.split('=')[1] : '/';
 
     const userRegister = useSelector(state => state.userRegister);
+
     const { userInfo, loading, error } = userRegister;
 
     const registerHandler = (e) => {
@@ -81,4 +82,4 @@ function RegisterScreen({ location }) {
     )
 }
 
-export default RegisterScreen
+export default RegisterScreen;

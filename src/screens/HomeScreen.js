@@ -5,6 +5,7 @@ import { getListProducts } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
+
 function HomeScreen() {
 
     const productList = useSelector(state => state.productList);
@@ -20,7 +21,7 @@ function HomeScreen() {
 
     return (
         <section>
-            <h4 className="font-rubik font-size-20 pt-5 pl-5 pb-3">All Products</h4>
+            <h4 className="font-rubik font-size-20 pt-5 pl-5 pb-3">Tất cả sản phẩm</h4>
             <div className="products d-flex justify-content-center flex-wrap font-rale">
                 {loading ? <LoadingBox /> : error ? <MessageBox>{error}</MessageBox> : (
                     products.map((product) => (

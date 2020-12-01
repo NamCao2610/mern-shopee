@@ -17,6 +17,8 @@ function SigninScreen({ location }) {
 
     const dispatch = useDispatch();
 
+    console.log(location);
+
     const redirect = location.search ? location.search.split('=')[1] : '/';
 
     const userSignin = useSelector(state => state.userSignin);
