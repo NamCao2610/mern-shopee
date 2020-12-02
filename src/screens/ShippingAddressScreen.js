@@ -40,7 +40,7 @@ function ShippingAddressScreen({ history }) {
                 </Link>
 
                 <div className="shipping__container">
-                    <h3>Shipping</h3>
+                    <h3>Nhập thông tin giao hàng</h3>
 
                     <form>
                         <h5>Tên đầy đủ: </h5>

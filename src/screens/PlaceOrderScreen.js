@@ -60,11 +60,16 @@ function PlaceOrderScreen(props) {
                                     <div class="payment-method card mt-2">
                                         <div class="card-body">
                                             <h5 class="card-title">Hình thức thanh toán: </h5>
-                                            <p class="card-text"><strong>loại thanh toán: </strong>{cart.paymentMethod}</p>
+                                            <p class="card-text"><strong>Loại thanh toán: </strong>{cart.paymentMethod}</p>
+                                        </div>
+                                    </div>
+                                    <div className="order card mt-2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Danh sách sản phẩm trong đơn hàng: </h5>
                                         </div>
                                     </div>
                                     {cart.cartItems.map((item) => (
-                                        <div className="row border-top py-3 mt-3" key={item.id}>
+                                        <div className="row border-top py-3 mt-1" key={item.id}>
                                             <div className="col-sm-2">
                                                 <img src={item.image} style={{ height: "120px" }} alt={item.name}
                                                     className="img-fluid" />
@@ -99,7 +104,7 @@ function PlaceOrderScreen(props) {
                                 <h6 className="text-success font-rale font-size-12 py-3"><i className="fas fa-check"></i> Chi tiết thanh toán
                             </h6>
                                 <div className="border-top py-4">
-                                    <h5 className="font-baloo font-size-20">Tổng cộng Order: &nbsp;</h5>
+                                    <h5 className="font-baloo font-size-20">Tổng đơn hàng: &nbsp;</h5>
                                     <p className="d-flex justify-content-around py-2 border-top">
                                         <span>Tổng giá tiền: </span>
                                         <span>${cart.totalPrice.toFixed(2)}</span>
