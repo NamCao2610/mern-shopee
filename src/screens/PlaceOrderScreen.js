@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import MessageBox from '../components/MessageBox';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createOrder } from '../actions/orderActions';
+import { ORDER_CREATE_RESET } from '../constants/orderContants';
+import LoadingBox from '../components/LoadingBox';
 
 function PlaceOrderScreen(props) {
 
@@ -13,6 +16,7 @@ function PlaceOrderScreen(props) {
         props.history.push('/payment');
     }
 
+    const dispatch = useDispatch();
     const toPrice = (num) => Number(num.toFixed(2));
 
     cart.totalPrice = toPrice(cart.cartItems.reduce((total, item) => total + item.qty * item.price, 0));
@@ -21,12 +25,26 @@ function PlaceOrderScreen(props) {
 
     cart.totalPayment = toPrice((cart.totalPrice + cart.shippingPrice + cart.grabPrice));
 
+    const orderCreate = useSelector(state => state.orderCreate);
+    const { loading, order, error, success } = orderCreate;
+
+    const placeOrderPayment = (e) => {
+        dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+    }
+
+    useEffect(() => {
+        if (success) {
+            props.history.push(`/order/${order._id}`);
+            dispatch({ type: ORDER_CREATE_RESET });
+        }
+    }, [dispatch, order, props.history, success])
+
     return (
         <div>
             <CheckoutSteps step1 step2 step3 step4 />
             <section id="placeorder" className="py-5">
                 <div className="container-fluid w-75">
-                    <h5 className="font-baloo font-size-20">Chi tiết thanh toán</h5>
+                    <h5 className="font-baloo font-size-20">Chi tiết đơn hàng</h5>
 
                     <div className="row">
                         <div className="col-sm-8">
@@ -98,7 +116,13 @@ function PlaceOrderScreen(props) {
                                         <strong>Tổng thanh toán: </strong>
                                         <span>${cart.totalPayment.toFixed(2)}</span>
                                     </p>
-                                    <button className="btn btn-warning mt-3" disabled={cart.cartItems.length === 0}>Tiến hành thanh toán</button>
+                                    <button className="btn btn-warning mt-3 mb-3" disabled={cart.cartItems.length === 0} onClick={placeOrderPayment}>Tiến hành thanh toán</button>
+                                    {
+                                        loading && <LoadingBox />
+                                    }
+                                    {
+                                        error && <MessageBox>{error}</MessageBox>
+                                    }
                                 </div>
                             </div>
                         </div>

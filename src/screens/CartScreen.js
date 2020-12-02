@@ -42,7 +42,7 @@ function CartScreen({ match, location, history }) {
                     <div className="col-sm-9">
 
                         {cartItems.length === 0 ? <MessageBox>Cart hiện tại chưa có gì <Link to="/">Go Shopping</Link></MessageBox> : cartItems.map((item) => (
-                            <div className="row border-top py-3 mt-3" key={item.id}>
+                            <div className="row border-top py-3 mt-3" key={item.product}>
                                 <div className="col-sm-2">
                                     <img src={item.image} style={{ height: "120px" }} alt={item.name}
                                         className="img-fluid" />
@@ -60,14 +60,14 @@ function CartScreen({ match, location, history }) {
 
                                     <div className="qty d-flex pt-2">
                                         <div className="d-flex font-rale w-25">
-                                            <select value={item.qty} onChange={e => dispatch(addToCart(item._id, e.target.value))}>
+                                            <select value={item.qty} onChange={e => dispatch(addToCart(item.product, e.target.value))}>
                                                 {[...Array(item.countInStock).keys()].map((x) => (
                                                     <option key={x + 1}>{x + 1}</option>
                                                 ))}
                                             </select>
                                         </div>
                                         <button type="submit"
-                                            className="btn font-baloo text-danger px-3 border-right" onClick={e => handleRemoveCart(item._id)}>Xóa khỏi giỏ hàng</button>
+                                            className="btn font-baloo text-danger px-3 border-right" onClick={e => handleRemoveCart(item.product)}>Xóa khỏi giỏ hàng</button>
                                         <button type="submit" className="btn font-baloo text-danger px-3">Lưu lại giỏ hàng</button>
                                     </div>
 
