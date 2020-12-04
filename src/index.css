@@ -86,3 +86,19 @@ a {
 .color-yellow-bg {
   background: #FFD289;
 }
+
+.color-warning {
+  color: #E0A800;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  min-height: 70vh;
+}

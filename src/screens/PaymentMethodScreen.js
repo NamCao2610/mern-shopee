@@ -8,6 +8,11 @@ import { savePaymentMethod } from '../actions/cartActions';
 function PaymentMethodScreen(props) {
 
     const cart = useSelector(state => state.cart);
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
+    if (!userInfo) {
+        props.history.push('/shipping');
+    }
     const { shippingAddress } = cart;
     if (!shippingAddress.address) {
         props.history.push('/shipping');

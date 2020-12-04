@@ -3,19 +3,29 @@ import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import MessageBox from '../components/MessageBox';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOrderDetails } from '../actions/orderActions';
+import { getOrderDetails, payOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import axios from '../axios';
 import { PayPalButton } from 'react-paypal-button-v2';
+import { ORDER_PAY_RESET } from '../constants/orderContants';
 
 function OrderScreen(props) {
 
     const orderId = props.match.params.id;
 
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
+    if (!userInfo) {
+        props.history.push('/signin');
+    }
     const dispatch = useDispatch();
     const [sdkReady, setSdkReady] = useState(false)
     const orderDetails = useSelector(state => state.orderDetails);
     const { loading, order, error } = orderDetails;
+
+
+    const orderPay = useSelector(state => state.orderPay);
+    const { loading: loadingPay, error: errorPay, success: successPay } = orderPay
 
     useEffect(() => {
         const addPayPalScript = async () => {
@@ -30,10 +40,10 @@ function OrderScreen(props) {
             document.body.appendChild(script);
         }
 
-        if (!order?._id) {
+        if (!order || successPay || (order && order._id !== orderId)) {
+            dispatch({ type: ORDER_PAY_RESET });
             dispatch(getOrderDetails(orderId));
         } else {
-            console.log(window.paypal);
             if (!order.isPaid) {
                 if (!window.paypal) {
                     addPayPalScript();
@@ -42,10 +52,11 @@ function OrderScreen(props) {
                 }
             }
         }
-    }, [dispatch, orderId, order])
+    }, [dispatch, orderId, order, successPay])
 
-    const successPaymentHandler = () => {
-
+    const successPaymentHandler = (paymentResult) => {
+        console.log(paymentResult);
+        dispatch(payOrder(orderId, paymentResult));
     }
 
     return (
@@ -70,7 +81,7 @@ function OrderScreen(props) {
                                         <div className="card-body">
                                             <h5 className="card-title">Hình thức thanh toán: </h5>
                                             <p className="card-text"><strong>loại thanh toán: </strong>{order.paymentMethod}</p>
-                                            {order.isPaid ? <MessageBox variant="success">Đơn hàng này đã được thanh toán</MessageBox> : <MessageBox variant="danger">Đơn hàng chưa thanh toán</MessageBox>}
+                                            {order.isPaid ? <MessageBox variant="success">Đơn hàng này đã được thanh toán vào {order?.paidAt}</MessageBox> : <MessageBox variant="danger">Đơn hàng chưa thanh toán</MessageBox>}
                                         </div>
                                     </div>
                                     <div className="order card mt-2">
@@ -136,7 +147,11 @@ function OrderScreen(props) {
                                                     <p className="d-flex justify-content-around py-1 border-top">
                                                         <span>Thanh toán đơn hàng của bạn tại đây:</span>
                                                     </p>
-                                                    { !sdkReady ? (<LoadingBox />) : (<PayPalButton amount={order.totalPayment} onSuccess={successPaymentHandler}></PayPalButton>)}
+                                                    { !sdkReady ? (<LoadingBox />) : (<>
+                                                        { loadingPay && <LoadingBox />}
+                                                        { errorPay && <MessageBox variant="danger">{errorPay}</MessageBox>}
+                                                        <PayPalButton amount={order.totalPayment} onSuccess={successPaymentHandler}></PayPalButton>
+                                                    </>)}
                                                 </div>
                                             )
                                         }

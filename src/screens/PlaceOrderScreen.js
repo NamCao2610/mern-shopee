@@ -11,7 +11,11 @@ import LoadingBox from '../components/LoadingBox';
 function PlaceOrderScreen(props) {
 
     const cart = useSelector(state => state.cart);
-
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
+    if (!userInfo) {
+        props.history.push('/payment');
+    }
     if (!cart.shippingAddress.address) {
         props.history.push('/payment');
     }
@@ -69,7 +73,7 @@ function PlaceOrderScreen(props) {
                                         </div>
                                     </div>
                                     {cart.cartItems.map((item) => (
-                                        <div className="row border-top py-3 mt-1" key={item.id}>
+                                        <div className="row border-top py-3 mt-1" key={item.product}>
                                             <div className="col-sm-2">
                                                 <img src={item.image} style={{ height: "120px" }} alt={item.name}
                                                     className="img-fluid" />
