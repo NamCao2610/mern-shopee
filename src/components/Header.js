@@ -28,6 +28,7 @@ function Header() {
                                 <i className="fas fa-user">&nbsp;&nbsp;</i> Xin chào {userInfo.name}&nbsp;&nbsp;<i className="fas fa-caret-down"></i>
                             </Link>
                             <ul className="dropdown-content">
+                                <li className="p-2"><i className="far fa-hand-point-right"></i>&nbsp;<Link to="/profile">Thông tin cá nhân</Link></li>
                                 <li className="p-2"><i className="far fa-hand-point-right"></i>&nbsp;<Link to="/orderhistory">Đơn hàng của bạn</Link></li>
                                 <li className="p-2"><i className="far fa-hand-point-right"></i>&nbsp;<Link to="#signout" onClick={handleLogout}>Đăng xuất</Link></li>
                             </ul>

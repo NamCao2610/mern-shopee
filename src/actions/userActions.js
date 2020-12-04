@@ -1,4 +1,4 @@
-import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAIL, USER_SIGN_OUT, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL } from '../constants/userContants';
+import { USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNIN_FAIL, USER_SIGN_OUT, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_FAIL, USER_DETAILS_SUCCESS } from '../constants/userContants';
 import axios from '../axios';
 
 export const signin = (email, password) => async (dispatch) => {
@@ -48,4 +48,28 @@ export const signout = () => (dispatch) => {
     })
     localStorage.removeItem('userInfo');
     localStorage.removeItem('cartItems');
+}
+
+export const getDetailsUser = (userId) => async (dispatch, getState) => {
+    dispatch({
+        type: USER_DETAILS_REQUEST,
+        payload: userId
+    })
+    const { userSignin: { userInfo } } = getState();
+    try {
+        const { data } = await axios.get(`api/users/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: USER_DETAILS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
 }

@@ -42,14 +42,14 @@ function SigninScreen({ location }) {
             </Link>
 
             <div className="login__container">
-                <h1>Đăng nhập</h1>
+                <h1 className="font-baloo">Đăng nhập</h1>
 
                 <form>
                     {loading ? <LoadingBox></LoadingBox> : error && <MessageBox>{error}</MessageBox>}
-                    <h5>Email: </h5>
+                    <h5 className="font-baloo font-size-20">Email: </h5>
                     <input type="email" required onChange={e => setEmail(e.target.value)} />
 
-                    <h5>Mật khẩu: </h5>
+                    <h5 className="font-baloo font-size-20">Mật khẩu: </h5>
                     <input type="password" onChange={e => setPassword(e.target.value)} />
 
                     <button type="submit" className="login__signInButton" required onClick={signinHandler}>Đăng nhập</button>

@@ -52,21 +52,21 @@ function RegisterScreen({ location }) {
             </Link>
 
             <div className="login__container">
-                <h1>Đăng Ký</h1>
+                <h1 className="font-baloo">Đăng Ký</h1>
 
                 <form>
                     {loading ? <LoadingBox></LoadingBox> : error && <MessageBox>{error}</MessageBox>}
                     {alertError && <MessageBox>{alertError}</MessageBox>}
-                    <h5>Tên người dùng: </h5>
+                    <h5 className="font-baloo font-size-20">Tên người dùng: </h5>
                     <input type="text" required onChange={e => setName(e.target.value)} />
 
-                    <h5>Email: </h5>
+                    <h5 className="font-baloo font-size-20">Email: </h5>
                     <input type="email" required onChange={e => setEmail(e.target.value)} />
 
-                    <h5>Mật khẩu: </h5>
+                    <h5 className="font-baloo font-size-20">Mật khẩu: </h5>
                     <input type="password" onChange={e => setPassword(e.target.value)} />
 
-                    <h5>Nhập lại mật khẩu: </h5>
+                    <h5 className="font-baloo font-size-20">Nhập lại mật khẩu: </h5>
                     <input type="password" onChange={e => setConfirmPassword(e.target.value)} />
 
                     <button type="submit" className="login__signInButton" required onClick={registerHandler}>Đăng ký</button>
