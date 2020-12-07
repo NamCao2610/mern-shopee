@@ -19,10 +19,10 @@ function Navbar() {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav m-auto font-rubik">
                     <li className="nav-item active">
-                        <Link className="nav-link" to="/onsale">Sale <span className="sr-only">(current)</span></Link>
+                        <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/category">Mặt hàng <i className="fas fa-chevron-down"></i></Link>
+                        <Link className="nav-link" to="/">Mặt hàng <i className="fas fa-chevron-down"></i></Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/products">Danh sách sản phẩm<i className="fas fa-chevron-down"></i></Link>
